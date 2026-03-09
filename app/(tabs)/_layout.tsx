@@ -1,34 +1,70 @@
+import { MaterialIcons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
+        tabBarActiveTintColor: '#ec7f13',
+        tabBarInactiveTintColor: '#9ca3af',
+        tabBarStyle: {
+          backgroundColor: '#fff',
+          borderTopColor: '#f3f4f6',
+          paddingBottom: 8,
+          paddingTop: 4,
+          height: 60,
+        },
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name="fandraisana"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: 'Accueil',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="home" color={color} size={size} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="sakafo"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Sakafo',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="restaurant" color={color} size={size} />
+          ),
         }}
+      />
+      <Tabs.Screen
+        name="biblio"
+        options={{
+          title: 'Laoka',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="menu-book" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="herinandro"
+        options={{
+          title: 'Spin',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="casino" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="tsena"
+        options={{
+          title: 'Tsena',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="shopping-cart" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="index"
+        options={{ href: null }}
       />
     </Tabs>
   );
