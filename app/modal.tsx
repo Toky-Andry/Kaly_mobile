@@ -30,7 +30,7 @@ export default function Modal() {
 
   function handleSave() {
     if (!nom.trim()) {
-      Alert.alert('Diso', 'Soraty ny anarana ny laoka!');
+      Alert.alert('Diso', 'Safidio laoka aloha!');
       return;
     }
     if (isEdit) {
@@ -63,6 +63,22 @@ export default function Modal() {
 
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
 
+        {/* Laoka sélectionné */}
+        {nom ? (
+          <View style={styles.selectedCard}>
+            <MaterialIcons name="restaurant" size={20} color="#ec7f13" />
+            <Text style={styles.selectedNom}>{nom}</Text>
+            <TouchableOpacity onPress={() => setNom('')}>
+              <MaterialIcons name="close" size={18} color="#9ca3af" />
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={styles.emptySelected}>
+            <MaterialIcons name="touch-app" size={20} color="#d1d5db" />
+            <Text style={styles.emptySelectedText}>Safidio laoka eto ambany</Text>
+          </View>
+        )}
+
         {/* Choix du jour */}
         <Text style={styles.label}>📅 Andro</Text>
         <View style={styles.joursGrid}>
@@ -82,16 +98,6 @@ export default function Modal() {
           ))}
         </View>
 
-        {/* Nom manuel */}
-        <Text style={styles.label}>🍽️ Anarana ny Laoka</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Soraty na safidio eto ambany..."
-          placeholderTextColor="#d1d5db"
-          value={nom}
-          onChangeText={setNom}
-        />
-
         {/* Recherche biblio */}
         <Text style={styles.label}>📚 Safidio avy amin'ny Tahiry</Text>
         <View style={styles.searchBox}>
@@ -103,6 +109,11 @@ export default function Modal() {
             value={recherche}
             onChangeText={setRecherche}
           />
+          {recherche ? (
+            <TouchableOpacity onPress={() => setRecherche('')}>
+              <MaterialIcons name="close" size={18} color="#9ca3af" />
+            </TouchableOpacity>
+          ) : null}
         </View>
 
         {/* Liste biblio */}
@@ -167,12 +178,21 @@ const styles = StyleSheet.create({
   },
   saveBtnText: { color: '#ec7f13', fontWeight: '700', fontSize: 14 },
   content: { padding: 20 },
-  label: { fontSize: 13, fontWeight: '700', color: '#6b7280', letterSpacing: 1, marginTop: 20, marginBottom: 10 },
-  input: {
+  selectedCard: {
+    flexDirection: 'row', alignItems: 'center', gap: 10,
     backgroundColor: '#fff', borderRadius: 14, padding: 16,
-    fontSize: 16, color: '#1f2937', fontWeight: '500',
-    borderWidth: 1.5, borderColor: '#f3f4f6',
+    borderWidth: 2, borderColor: '#ec7f13',
+    shadowColor: '#ec7f13', shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12, shadowRadius: 6, elevation: 3,
   },
+  selectedNom: { flex: 1, fontSize: 16, fontWeight: '700', color: '#1f2937' },
+  emptySelected: {
+    flexDirection: 'row', alignItems: 'center', gap: 10,
+    backgroundColor: '#f9fafb', borderRadius: 14, padding: 16,
+    borderWidth: 1.5, borderColor: '#f3f4f6', borderStyle: 'dashed',
+  },
+  emptySelectedText: { fontSize: 14, color: '#d1d5db', fontStyle: 'italic' },
+  label: { fontSize: 13, fontWeight: '700', color: '#6b7280', letterSpacing: 1, marginTop: 20, marginBottom: 10 },
   joursGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
   jourBtn: {
     paddingHorizontal: 14, paddingVertical: 10, borderRadius: 12,

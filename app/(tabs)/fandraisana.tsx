@@ -1,4 +1,4 @@
-import { getAllBiblio, getAllCourses, getAllRepas, getCustomImages, LAOKA_IMAGES, Repas } from '@/hooks/useDatabase';
+import { getAllBiblio, getAllCourses, getAllRepas, getCustomImages, initDatabase, LAOKA_IMAGES, Repas } from '@/hooks/useDatabase';
 import { annulerToutesNotifications, notificationTest, programmerNotifications } from '@/hooks/useNotifications';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as Notifications from 'expo-notifications';
@@ -32,6 +32,7 @@ export default function Fandraisana() {
   const [customImages, setCustomImages] = useState<Record<string, string>>({});
 
   useEffect(() => {
+    initDatabase(); // ← FIX PRINCIPAL — crée les tables avant tout
     Notifications.getPermissionsAsync().then(({ status }) => {
       setNotifActive(status === 'granted');
     });
@@ -214,7 +215,7 @@ export default function Fandraisana() {
 
         <Text style={styles.notifInfo}>
           {notifActive
-            ? " Hampandrenesina ianao amin'ny 8h sy 19h isan'andro"
+            ? "✅ Hampandrenesina ianao amin'ny 8h sy 19h isan'andro"
             : "⚠️ Tsy misy fampandrenesana napetraka"}
         </Text>
       </View>
